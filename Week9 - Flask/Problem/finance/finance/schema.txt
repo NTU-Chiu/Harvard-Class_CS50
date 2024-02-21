@@ -1,0 +1,35 @@
+CREATE TABLE history(
+                           history_id INTEGER PRIMARY KEY,
+                           user_id INTEGER,
+                           symbol TEXT,
+                           price NUMERIC,
+                           shares INTEGER,
+                           time NUMERIC,
+                           transaction_type TEXT,
+                           cash_before NUMERIC,
+                           cash_after NUMERIC,
+                           FOREIGN KEY(user_id) REFERENCES users(id)
+                );
+
+CREATE TABLE history(
+                           history_id INTEGER PRIMARY KEY,
+                           user_id INTEGER,
+                           symbol TEXT,
+                           price TEXT,
+                           shares INTEGER,
+                           time NUMERIC,
+                           transaction_type TEXT,
+                           cash_before NUMERIC,
+                           cash_after NUMERIC,
+                           FOREIGN KEY(user_id) REFERENCES users(id)
+                );
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL, cash NUMERIC NOT NULL DEFAULT 10000.00);
+CREATE UNIQUE INDEX username ON users (username); //INDEX的目的在于提高数据库的性能
+
+[{'history_id': 1, 'user_id': 3, 'symbol': 'NFLX', 'price': 564.64, 'shares': 1, 'time': '2024-02-05 08:12:25', 'transaction_type': 'buy', 'cash_before': 10000, 'cash_after': 9435.36}, {'history_id': 2, 'user_id': 3, 'symbol': 'NFLX', 'price': 564.64, 
+'shares': 1, 'time': '2024-02-05 08:15:56', 'transaction_type': 'buy', 'cash_before': 10000, 'cash_after': 9435.36}, {'history_id': 3, 'user_id': 3, 'symbol': 'NFLX', 'price': 564.64, 'shares': 1, 'time': '2024-02-05 08:20:56', 'transaction_type': 'buy', 'cash_before': 5000, 'cash_after': 4435.36}, {'history_id': 4, 'user_id': 3, 'symbol': 'NFLX', 'price': 564.64, 'shares': 1, 'time': '2024-02-05 08:21:44', 'transaction_type': 'buy', 'cash_before': 5000, 'cash_after': 4435.36}, {'history_id': 5, 'user_id': 3, 'symbol': 'NFLX', 'price': 564.64, 'shares': 1, 'time': '2024-02-05 08:22:07', 'transaction_type': 'buy', 'cash_before': 5000, 'cash_after': 4435.36}]
+[{'id': 3, 'username': 'A', 'hash': 'scrypt:32768:8:1$0bphYRvIFC7oHw2d$71123ad3dcc191eb31e68bf9658e36082a40b68f9b2d274ebf4113d235f8cc078e4c978d8ba20aa22e93037b538729660608d78766d22fb368ba2976fc18e80d', 'cash': 4435.36}]
+
+print(db.execute("""SELECT symbol, SUM(shares) FROM history 
+                    WHERE user_id = 3 AND transaction_type = ?"""), 
+                    session["user_id"], 'buy')

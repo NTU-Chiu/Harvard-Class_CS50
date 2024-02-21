@@ -1,0 +1,17 @@
+body{
+    font-family:courier;
+}
+
+.button_subpage {
+    background-color: #fa8072;
+    padding: 2rem 2rem;
+    text-align: center;
+	}
+
+span{
+  	text-decoration:underline;
+        color:black;
+        font-family:courier;
+        padding: 1rem 1rem;
+        text-align: center;
+  }
